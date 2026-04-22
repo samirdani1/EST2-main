@@ -25,7 +25,8 @@ export interface Filiere {
 }
 
 // --- PROFESSEURS ---
-export const PROFESSORS = [
+export const PROFESSORS_BY_FILIERE: Record<string, string[]> = {
+  "TM-FBA": [
   "M. TOUZANI",
   "M. HANOUF",
   "M. LAISSAOUI",
@@ -34,18 +35,13 @@ export const PROFESSORS = [
   "M. SADIK",
   "M. ED-DAOU",
   "Mr OURAMMOU",
-  "Mr MOUHCINE",
+  "M. MOUHCINE",
   "M. DAHMOUNI",
-  "Mme BENNANI",
-  "M. EL AMRANI",
-  "Mme IDRISSI",
-  "M. KHALIL",
-  "Mme ZAHID",
-  "M. TAHIRI",
-  "Mme SOUSSI",
-  "M. FASSI",
-  "Mme CHAFIQ",
-  "M. RACHIDI"
+  "M. BENKARTOUA",
+  "M. EL HARCHAOUI",
+  "M. TELMIM",
+  "M. MACHDOUDL",
+  "M. TAGUIBiblio",
 ];
 
 // --- MODULES / MATIÈRES ---
@@ -57,19 +53,6 @@ export const MODULES = [
   "Démarche marketing (Mark+Tech. Enquête)",
   "Travaux d'inventaire",
   "Culture digitale",
-  "Comptabilité générale",
-  "Mathématiques appliquées",
-  "Économie générale",
-  "Droit des obligations",
-  "Management des organisations",
-  "Techniques de communication",
-  "Informatique de gestion",
-  "Langue étrangère (Anglais)",
-  "Langue étrangère (Français)",
-  "Développement personnel",
-  "Gestion de projet",
-  "Marketing digital",
-  "Finance d'entreprise"
 ];
 
 // --- SALLES ---
