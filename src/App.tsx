@@ -376,32 +376,34 @@ export default function App() {
   // ===================================================
   // 🔥 FIRESTORE - Teachers
   // ===================================================
-  useEffect(() => {
-    try {
-      const q = query(collection(db, 'teachers'), orderBy('name', 'asc'));
-      const unsubscribe = onSnapshot(q,
-        (snapshot) => {
-          const docs: Teacher[] = snapshot.docs.map((d) => {
-            const data = d.data();
-            return {
-              id: d.id,
-              name: data.name || '',
-              email: data.email || '',
-              phone: data.phone || '',
-              department: data.department || '',
-              modules: data.modules || 0
-            };
-          });
-          setTeachers(docs);
-        },
-        (error) => {
-          console.error('Teachers Snapshot Error: ', error);
-        }
-      );
-      return () => unsubscribe();
-    } catch { }
-  }, []);
+useEffect(() => {
+  if (!selectedFiliere) return; // إلا مزال ما اختار الأدمين حتى شعبة، ما نجيبو والو
 
+  try {
+    // كنفترضو أن selectedFiliere هو الـ Code بحال "TM-FBA"
+    // خاص الـ 'department' في قاعدة البيانات يكون كيتطابق مع هاد الكود
+    const q = query(
+      collection(db, 'teachers'), 
+      where('department', '==', selectedFiliere), // الفلتر السحري
+      orderBy('name', 'asc')
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const docs: Teacher[] = snapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data()
+      } as Teacher));
+      
+      setTeachers(docs);
+    }, (error) => {
+      console.error('Error fetching filtered teachers: ', error);
+    });
+
+    return () => unsubscribe();
+  } catch (err) {
+    console.error(err);
+  }
+}, [selectedFiliere]); // هادي كتقول لـ React: "كلما تبدلات الشعبة، عاود جيب الأساتذة"
   // ===================================================
   // 🔥 FIRESTORE - Schedule
   // ===================================================
